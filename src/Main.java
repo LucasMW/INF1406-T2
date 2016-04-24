@@ -19,6 +19,20 @@ public class Main
 		System.out.println(String.format("Received path=%s\n N=%d, M=%d q = %d"
 				,filePath,N,M,numberOfMatrices));
 		
+
+		double [ ][ ] A = {   { 20, 18},
+                              { 18, 20},
+                          };
+		double [ ][ ] B = 
+			{   
+				{ 20, 18},
+                { 18, 20},
+            };
+		double [ ][ ] C = 
+			{   
+				{ 20, 18},
+                { 18, 20},
+            };
 	}
 	
 }
