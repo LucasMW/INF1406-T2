@@ -12,12 +12,12 @@ public class Main
 			System.out.println("expects ./prog path N M n");
 			return;
 		}
-		String filePath = args[0]; // path to matrixes file 
+		String filePath = args[0]; // path to matrices file 
 		int N = Integer.parseInt(args[1]); //matrix dimension (NxN)
 		int M = Integer.parseInt(args[2]); // number of threads to be used;
-		int numberOfMatrixes = Integer.parseInt(args[3]);  // number of matrixes in file
+		int numberOfMatrices = Integer.parseInt(args[3]);  // number of matrices in file
 		System.out.println(String.format("Received path=%s\n N=%d, M=%d q = %d"
-				,filePath,N,M,numberOfMatrixes));
+				,filePath,N,M,numberOfMatrices));
 		
 	}
 	
