@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
@@ -85,8 +86,9 @@ public class Main
 	}
 	private static List<double[][]> readMatrixFromPath(String path, int numberOfMatrices, int N) throws FileNotFoundException
 	{
-		File file = new File(path);
-		Scanner sc = new Scanner(System.in);
+		
+		List<Double> doubleList = readFileAsDoubleList(path);
+		
 		List<double[][]> list = new LinkedList<double[][]>(); 
 		for(int k = 0; k < numberOfMatrices; k++)
 		{
@@ -96,7 +98,8 @@ public class Main
 				for(int j=0;j<N;j++)
 				{
 					System.out.printf("k:%d[%d,%d]\n",k,i,j);
-					matrix[i][j] =  sc.hasNext() ? sc.nextDouble(): 0.0;
+					matrix[i][j] =  doubleList.get(0);
+					doubleList.remove(0);
 				}
 			}
 			list.add(matrix);
@@ -116,6 +119,34 @@ public class Main
 		}
 
 		b.close();
+	}
+	private static List<Double> readFileAsDoubleList(String path)
+	{
+		List<Double> list = new LinkedList<Double>();
+		BufferedReader reader = null;
+		try {
+		    reader = new BufferedReader(new FileReader(path));
+		    String text = null;
+
+		    while ((text = reader.readLine()) != null) {
+		    	for (String txt :text.split(" "))
+		    	{
+		    		list.add( Double.parseDouble(txt));
+		    	}
+		    }
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} finally {
+		    try {
+		        if (reader != null) {
+		            reader.close();
+		        }
+		    } catch (IOException e) {
+		    }
+		}
+		return list;
 	}
 	
 
