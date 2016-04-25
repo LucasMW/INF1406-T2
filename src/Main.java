@@ -73,7 +73,7 @@ public class Main
 			return;
 		}
 		
-		Manager manager = new Manager(7, 2);
+		Manager manager = new Manager(M, N);
 		manager.setMatrixList(matrixList);
 		long startTime = System.currentTimeMillis();
 		manager.startBatch();
