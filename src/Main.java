@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+
 
 
 public class Main 
@@ -25,15 +28,31 @@ public class Main
                           };
 		double [ ][ ] B = 
 			{   
-				{ 20, 18},
-                { 18, 20},
+				{ 1, 0},
+                { 0, 1},
             };
 		double [ ][ ] C = 
 			{   
-				{ 20, 18},
-                { 18, 20},
+				{ 1, 2},
+                { 1, 2},
             };
+		List<double[][]> list = new LinkedList<double[][]>();
+		list.add(A);
+		for(int x=0;x<100;x++)
+		{
+			list.add(B);
+		}
+		
+		Manager manager = new Manager(5, 2);
+		manager.setMatrixList(list);
+		manager.startBatch();
+		
+		System.out.println("Finished");
+		System.out.println(manager.currentMatrix.toString());
+		manager.printMatrix();
 	}
+	
+
 	
 }
 

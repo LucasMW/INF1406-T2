@@ -7,7 +7,7 @@ public class Worker implements Runnable
 	double N;
 	Manager manager;
 	
-	public Worker(int N,Manager manager)
+	public Worker(int N,Manager manager, int i, int j)
 	{
 		this.N = N;
 		this.manager = manager;
@@ -16,15 +16,7 @@ public class Worker implements Runnable
 	@Override
 	public void run() 
 	{
-		
-		for(int i=0;i<N;i++)
-		{
-			for(int j=0;j<0;j++)
-			{
-				
-			}
-		}
-		// TODO Auto-generated method stub
+		evaluate(i,j);
 	}
 	private void evaluate(int i, int j)
 	{
