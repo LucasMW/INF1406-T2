@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -83,7 +85,36 @@ public class Main
 		System.out.println("Finished");
 		System.out.println(String.format("It took %d miliseconds", elapsedTime));
 		manager.printMatrix();
+		
+		try 
+		{
+			writeResultToFile("resultado.txt",manager.currentMatrix,N);
+			System.out.println("Wrote to file");
+		} catch (FileNotFoundException e) 
+		{
+			System.out.println("ERROR: couldn't write to file");
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) 
+		{
+			System.out.println("Expect never see this");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	private static void writeResultToFile(String filePath,double[][] matrix, int N) throws FileNotFoundException, UnsupportedEncodingException
+	{
+		PrintWriter writer = new PrintWriter(filePath, "UTF-8");
+		for(int i= 0 ; i<N ; i++)
+		{
+			for(int j=0;j<N;j++)
+			{
+				writer.printf("%f ",matrix[i][j]);
+			}
+			writer.println();
+		}
+		writer.close();
+	}
+	
 	private static List<double[][]> readMatrixFromPath(String path, int numberOfMatrices, int N) throws FileNotFoundException
 	{
 		
