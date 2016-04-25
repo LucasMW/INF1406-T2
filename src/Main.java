@@ -109,7 +109,7 @@ public class Main
 		{
 			for(int j=0;j<N;j++)
 			{
-				writer.print(String.format(Locale.ENGLISH,"%f ",matrix[i][j]));
+				writer.print(String.format(Locale.ENGLISH,"%f ",matrix[i][j])); //use .
 			}
 			writer.println();
 		}
@@ -161,7 +161,7 @@ public class Main
 		    String text = null;
 
 		    while ((text = reader.readLine()) != null) {
-		    	for (String txt :text.split(" "))
+		    	for (String txt :text.split("\\s+"))
 		    	{
 		    		list.add( Double.parseDouble(txt));
 		    	}
