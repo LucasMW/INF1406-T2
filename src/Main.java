@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -108,7 +109,7 @@ public class Main
 		{
 			for(int j=0;j<N;j++)
 			{
-				writer.printf("%f ",matrix[i][j]);
+				writer.print(String.format(Locale.ENGLISH,"%f ",matrix[i][j]));
 			}
 			writer.println();
 		}
