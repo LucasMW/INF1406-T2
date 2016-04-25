@@ -33,25 +33,7 @@ public class Main
 				,filePath,N,M,numberOfMatrices));
 		
 
-//		double [ ][ ] A = {   { 20, 18},
-//                              { 18, 20},
-//                          };
-//		double [ ][ ] B = 
-//			{   
-//				{ 1, 0},
-//                { 0, 1},
-//            };
-//		double [ ][ ] C = 
-//			{   
-//				{ 1, 2},
-//                { 1, 2},
-//            };
-//		List<double[][]> list = new LinkedList<double[][]>();
-//		list.add(A);
-//		for(int x=0;x<30000;x++)
-//		{
-//			list.add(B);
-//		}
+
 		
 		try {
 			debugExec("pwd");
@@ -89,7 +71,7 @@ public class Main
 		
 		try 
 		{
-			writeResultToFile("resultado.txt",manager.currentMatrix,N);
+			writeResultToFile("resultado.txt",manager,N);
 			System.out.println("Wrote to file");
 		} catch (FileNotFoundException e) 
 		{
@@ -102,14 +84,14 @@ public class Main
 			e.printStackTrace();
 		}
 	}
-	private static void writeResultToFile(String filePath,double[][] matrix, int N) throws FileNotFoundException, UnsupportedEncodingException
+	private static void writeResultToFile(String filePath,Manager manager, int N) throws FileNotFoundException, UnsupportedEncodingException
 	{
 		PrintWriter writer = new PrintWriter(filePath, "UTF-8");
 		for(int i= 0 ; i<N ; i++)
 		{
 			for(int j=0;j<N;j++)
 			{
-				writer.print(String.format(Locale.ENGLISH,"%f ",matrix[i][j])); //use .
+				writer.print(String.format(Locale.ENGLISH,"%f ", manager.getCurrentMatrix(i, j))); //use .
 			}
 			writer.println();
 		}
@@ -129,7 +111,7 @@ public class Main
 			{
 				for(int j=0;j<N;j++)
 				{
-					System.out.printf("k:%d[%d,%d]\n",k,i,j);
+					System.out.printf("k:%d[%d,%d] %f\n",k,i,j,doubleList.get(0));
 					matrix[i][j] =  doubleList.get(0);
 					doubleList.remove(0);
 				}
@@ -138,6 +120,7 @@ public class Main
 		}
 		return list;
 	}
+	
 	static private void debugExec(String cmd) throws IOException, InterruptedException
 	{
 		Runtime r = Runtime.getRuntime();

@@ -10,15 +10,34 @@ public class Manager
 	int N; // matrixDimension
 	int matrixAmmount;
 	List<Worker> workers = new ArrayList<Worker>();
-	double[][] currentMatrix;
-	double[][] currentMatrixCopy; //old values
-	double[][] multiplierMatrix;
+	private double[][] currentMatrix;
+    private double[][] currentMatrixCopy; //old values
+	private double[][] multiplierMatrix;
 	List<double[][]> matrixList = new LinkedList<double[][]>();
-	private int i;
-	private int j;
+	public Object matrixlock = new Object();
 	
-	private Executor pool;
+	private ExecutorService pool;
 	
+	public double getCurrentMatrix(int i,int j)
+	{
+		System.out.println("get current");
+		return this.currentMatrix[i][j];
+	}
+	public void setCurrentMatrix(int i,int j, double val)
+	{
+		System.out.printf("set current [%d][%d] val %f\n",i,j,val);
+		this.currentMatrix[i][j] = val;
+	}
+	public double getMultiplierMatrix(int i, int j)
+	{
+		System.out.println("get multiplier");
+		return this.multiplierMatrix[i][j];
+	}
+	public double getCurrentMatrixCopy(int i, int j)
+	{
+		System.out.println("get copy");
+		return this.currentMatrixCopy[i][j];	
+	}
 	public Manager(int numberOfThreads, int matrixDimension)
 	{
 		this.numberOfThreads = numberOfThreads;
@@ -29,14 +48,7 @@ public class Manager
 	{
 		this.matrixList = list;
 	}
-	public void setWorkers()
-	{
-		for(int i= 0; i < numberOfThreads; i++)
-		{
-			Worker w = new Worker(N,this,i,j);
-			this.pool.execute(w);
-		}
-	}
+	
 	public void startBatch()
 	{
 		this.currentMatrix = matrixList.get(0);
@@ -52,7 +64,8 @@ public class Manager
 	{
 		System.out.println("Next Matrix called");
 		// copy matrix data
-		this.currentMatrixCopy = this.currentMatrix;
+		this.createMatrixCopy();
+		
 		// set new multiplier matrix
 		this.multiplierMatrix = matrixList.get(0);
 		// remove from queue
@@ -62,22 +75,44 @@ public class Manager
 	}
 	private void proccessMatrix()
 	{
-		for (i=0;i<N;i++)
+		for (int i=0;i<N;i++)
 		{
-			for(j=0;j<N;j++)
+			for(int j=0;j<N;j++)
 			{
 				Worker w = new Worker(N,this,i,j);
 				this.pool.execute(w); 
 			}
 		}
-		System.out.println("Matrix Processed?");
+		this.pool.shutdown();
+		try {
+			this.pool.awaitTermination(120, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			System.out.println("Should not be interrupted");
+			e.printStackTrace();
+			
+		}
+		this.pool = Executors.newFixedThreadPool(this.numberOfThreads);
+		
+		System.out.println("Matrix Processed");
+	}
+	public void createMatrixCopy()
+	{
+		this.currentMatrixCopy = new double[N][N];
+		for (int i=0;i<N;i++)
+		{
+			for(int j=0;j<N;j++)
+			{
+				this.currentMatrixCopy[i][j] = this.currentMatrix[i][j];
+			}
+			
+		}
 	}
 	public void printMatrix()
 	{
 		System.out.println(N);
-		for (i=0;i<N;i++)
+		for (int i=0;i<N;i++)
 		{
-			for(j=0;j<N;j++)
+			for(int j=0;j<N;j++)
 			{
 				System.out.printf("%f ",this.currentMatrix[i][j]);
 			}
