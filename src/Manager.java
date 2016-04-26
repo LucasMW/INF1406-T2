@@ -63,7 +63,7 @@ public class Manager
 	}
 	public void nextMatrix()
 	{
-		System.out.println("Next Matrix called");
+		//System.out.println("Next Matrix called");
 		// copy matrix data
 		this.createMatrixCopy();
 		
@@ -92,7 +92,7 @@ public class Manager
 			System.out.println("Please do not interrupt");
 			e.printStackTrace();
 		}
-		System.out.println("Matrix Processed");
+		//System.out.println("Matrix Processed");
 	}
 	// create deep copy of current Matrix
 	private void createMatrixCopy()
