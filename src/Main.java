@@ -25,6 +25,7 @@ public class Main
 			System.out.println("expects ./prog path N M n");
 			return;
 		}
+		// get parameters
 		String filePath = args[0]; // path to matrices file 
 		int N = Integer.parseInt(args[1]); //matrix dimension (NxN)
 		int M = Integer.parseInt(args[2]); // number of threads to be used;
@@ -44,6 +45,7 @@ public class Main
 			e1.printStackTrace();
 		}
 		
+		//read matrix list from file
 		List<double[][]> matrixList = null;
 		try 
 		{
@@ -57,6 +59,7 @@ public class Main
 			return;
 		}
 		
+		// calculations
 		Manager manager = new Manager(M, N);
 		manager.setMatrixList(matrixList);
 		
@@ -68,6 +71,7 @@ public class Main
 		System.out.println(String.format("It took %d miliseconds", elapsedTime));
 		manager.printMatrix();
 		
+		// write to file the result
 		try 
 		{
 			writeResultToFile("resultado.txt",manager,N);
@@ -83,7 +87,7 @@ public class Main
 			e.printStackTrace();
 		}
 		
-		//testRoutine(); use this for tests
+		//testRoutine(); use this for performance tests
 	}
 	private static void writeResultToFile(String filePath,Manager manager, int N) throws FileNotFoundException, UnsupportedEncodingException
 	{
