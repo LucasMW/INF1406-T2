@@ -58,6 +58,7 @@ public class Manager
 		{
 			nextMatrix();
 		}
+		terminatePool();
 		
 	}
 	public void nextMatrix()
@@ -94,7 +95,7 @@ public class Manager
 		
 		System.out.println("Matrix Processed");
 	}
-	public void createMatrixCopy()
+	private void createMatrixCopy()
 	{
 		this.currentMatrixCopy = new double[N][N];
 		for (int i=0;i<N;i++)
@@ -104,6 +105,18 @@ public class Manager
 				this.currentMatrixCopy[i][j] = this.currentMatrix[i][j];
 			}
 			
+		}
+	}
+	private void terminatePool()
+	{
+		this.pool.shutdown();
+		System.out.println("waiting threads to finish");
+		try {
+			this.pool.awaitTermination(120, TimeUnit.SECONDS);
+			System.out.println("pool finished");
+		} catch (InterruptedException e) {
+			System.out.println("pool was forced to shutdown");
+			this.pool.shutdownNow();
 		}
 	}
 	public void printMatrix()
