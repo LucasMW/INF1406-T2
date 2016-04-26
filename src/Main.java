@@ -33,8 +33,7 @@ public class Main
 				,filePath,N,M,numberOfMatrices));
 		
 
-
-		
+		//used as debug
 		try {
 			debugExec("pwd");
 		} catch (IOException e1) {
@@ -65,7 +64,6 @@ public class Main
 		manager.startBatch();
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		
-		
 		System.out.println("Finished");
 		System.out.println(String.format("It took %d miliseconds", elapsedTime));
 		manager.printMatrix();
@@ -80,7 +78,7 @@ public class Main
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) 
 		{
-			System.out.println("Expect never see this");
+			System.out.println("Expect never see this\n this is a bug");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -103,9 +101,10 @@ public class Main
 	
 	private static List<double[][]> readMatrixFromPath(String path, int numberOfMatrices, int N) throws FileNotFoundException
 	{
+		List<Double> doubleList = readFileAsDoubleList(path); // an easy way to do this
+		// I know it's not the most efficient
 		
-		List<Double> doubleList = readFileAsDoubleList(path);
-		
+		//transform double list in matrix list according with parameters
 		List<double[][]> list = new LinkedList<double[][]>(); 
 		for(int k = 0; k < numberOfMatrices; k++)
 		{
@@ -114,7 +113,7 @@ public class Main
 			{
 				for(int j=0;j<N;j++)
 				{
-					System.out.printf("k:%d[%d,%d] %f\n",k,i,j,doubleList.get(0));
+					//System.out.printf("k:%d[%d,%d] %f\n",k,i,j,doubleList.get(0));
 					matrix[i][j] =  doubleList.get(0);
 					doubleList.remove(0);
 				}
@@ -123,7 +122,7 @@ public class Main
 		}
 		return list;
 	}
-	
+	//used this to determine executable path
 	static private void debugExec(String cmd) throws IOException, InterruptedException
 	{
 		Runtime r = Runtime.getRuntime();
@@ -138,6 +137,7 @@ public class Main
 
 		b.close();
 	}
+	//create a Double List from file
 	private static List<Double> readFileAsDoubleList(String path)
 	{
 		List<Double> list = new LinkedList<Double>();
@@ -147,7 +147,7 @@ public class Main
 		    String text = null;
 
 		    while ((text = reader.readLine()) != null) {
-		    	for (String txt :text.split("\\s+"))
+		    	for (String txt :text.split("\\s+")) // deal with spaces and tabs
 		    	{
 		    		list.add( Double.parseDouble(txt));
 		    	}
@@ -166,6 +166,7 @@ public class Main
 		}
 		return list;
 	}
+	//use this for measurements
 	public static void testRoutine()
 	{
 		
@@ -176,7 +177,8 @@ public class Main
 				{1,2,3,4,5},
 				{1,2,3,4,5},
 				{1,2,3,4,5}};
-		double[][]Id = {{1,0,0,0,0},
+		double[][]Id = 
+				{{1,0,0,0,0},
 				{0,1,0,0,0},
 				{0,0,1,0,0},
 				{0,0,0,1,0},
