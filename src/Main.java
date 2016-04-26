@@ -33,17 +33,6 @@ public class Main
 		System.out.println(String.format("Received path=%s\n N=%d, M=%d, q = %d"
 				,filePath,N,M,numberOfMatrices));
 		
-
-		//used as debug
-		try {
-			debugExec("pwd");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		//read matrix list from file
 		List<double[][]> matrixList = null;
@@ -126,21 +115,7 @@ public class Main
 		}
 		return list;
 	}
-	//used this to determine executable path
-	static private void debugExec(String cmd) throws IOException, InterruptedException
-	{
-		Runtime r = Runtime.getRuntime();
-		Process p = r.exec(cmd);
-		p.waitFor();
-		BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		String line = "";
-
-		while ((line = b.readLine()) != null) {
-		  System.out.println(line);
-		}
-
-		b.close();
-	}
+	
 	//create a Double List from file
 	private static List<Double> readFileAsDoubleList(String path)
 	{
