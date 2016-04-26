@@ -28,11 +28,11 @@ public class Worker implements Runnable
 			double a = manager.getCurrentMatrixCopy(i,k);
 			double b = manager.getMultiplierMatrix(k,j);
 			double x = a * b;
-			System.out.printf("i %d,j %d,k %d  %f * %f = %f\n",i,j,k,a,b,x);
+			//System.out.printf("i %d,j %d,k %d  %f * %f = %f\n",i,j,k,a,b,x);
 			acc += x;
 		}
 		manager.setCurrentMatrix(i, j, acc);
-		System.out.printf("i=%d j=%d = %f\n",i,j,acc);
+		//System.out.printf("i=%d j=%d = %f\n",i,j,acc);
 		acc=0;
 		this.i=-1;
 		this.j=-1;

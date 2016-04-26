@@ -60,6 +60,7 @@ public class Main
 		
 		Manager manager = new Manager(M, N);
 		manager.setMatrixList(matrixList);
+		
 		long startTime = System.currentTimeMillis();
 		manager.startBatch();
 		long elapsedTime = System.currentTimeMillis() - startTime;
@@ -83,6 +84,8 @@ public class Main
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		testRoutine();
 	}
 	private static void writeResultToFile(String filePath,Manager manager, int N) throws FileNotFoundException, UnsupportedEncodingException
 	{
@@ -163,8 +166,35 @@ public class Main
 		}
 		return list;
 	}
-	
-
-	
+	public static void testRoutine()
+	{
+		
+		List<double[][]> list = new LinkedList<double[][]>();
+		double[][] A = 
+				{{1,2,3,4,5},
+				{1,2,3,4,5},
+				{1,2,3,4,5},
+				{1,2,3,4,5},
+				{1,2,3,4,5}};
+		double[][]Id = {{1,0,0,0,0},
+				{0,1,0,0,0},
+				{0,0,1,0,0},
+				{0,0,0,1,0},
+				{0,0,0,0,1}};
+		list.add(A);
+		for(int i=0;i<1000;i++)
+		{
+			list.add(Id);
+		}
+		Manager manager = new Manager(2, 5);
+		manager.setMatrixList(list);
+		
+		long startTime = System.currentTimeMillis();
+		manager.startBatch();
+		long elapsedTime = System.currentTimeMillis() - startTime;
+		System.out.println("Finished");
+		System.out.println(String.format("It took %d miliseconds", elapsedTime));
+		manager.printMatrix();
+	}
 }
 

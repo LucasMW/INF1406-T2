@@ -20,22 +20,22 @@ public class Manager
 	
 	public double getCurrentMatrix(int i,int j)
 	{
-		System.out.println("get current");
+		//System.out.println("get current");
 		return this.currentMatrix[i][j];
 	}
 	public void setCurrentMatrix(int i,int j, double val)
 	{
-		System.out.printf("set current [%d][%d] val %f\n",i,j,val);
+		//System.out.printf("set current [%d][%d] val %f\n",i,j,val);
 		this.currentMatrix[i][j] = val;
 	}
 	public double getMultiplierMatrix(int i, int j)
 	{
-		System.out.println("get multiplier");
+		//System.out.println("get multiplier");
 		return this.multiplierMatrix[i][j];
 	}
 	public double getCurrentMatrixCopy(int i, int j)
 	{
-		System.out.println("get copy");
+		//System.out.println("get copy");
 		return this.currentMatrixCopy[i][j];	
 	}
 	public Manager(int numberOfThreads, int matrixDimension)
@@ -75,23 +75,22 @@ public class Manager
 	}
 	private void proccessMatrix()
 	{
+		List<Callable<Object>> todo = new LinkedList<Callable<Object>>();
 		for (int i=0;i<N;i++)
 		{
 			for(int j=0;j<N;j++)
 			{
 				Worker w = new Worker(N,this,i,j);
-				this.pool.execute(w); 
+				todo.add(Executors.callable(w)); 
 			}
 		}
-		this.pool.shutdown();
+		
 		try {
-			this.pool.awaitTermination(120, TimeUnit.SECONDS);
+			this.pool.invokeAll(todo);
 		} catch (InterruptedException e) {
-			System.out.println("Should not be interrupted");
+			System.out.println("Please do not interrupt");
 			e.printStackTrace();
-			
 		}
-		this.pool = Executors.newFixedThreadPool(this.numberOfThreads);
 		
 		System.out.println("Matrix Processed");
 	}
