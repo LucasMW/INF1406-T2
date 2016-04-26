@@ -76,7 +76,7 @@ public class Main
 			e.printStackTrace();
 		}
 		
-		testRoutine(100, 1, 50, 2); //use this for performance tests
+		//testRoutine(100, 1, 50, 2); //use this for performance tests
 	}
 	private static void writeResultToFile(String filePath,Manager manager, int N) throws FileNotFoundException, UnsupportedEncodingException
 	{
