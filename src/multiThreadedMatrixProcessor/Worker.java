@@ -34,9 +34,7 @@ public class Worker implements Runnable
 		}
 		manager.setCurrentMatrix(i, j, acc);
 		//System.out.printf("i=%d j=%d = %f\n",i,j,acc);
-		acc=0;
-		this.i=-1;
-		this.j=-1;
+		
 	}
 	
 
