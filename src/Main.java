@@ -76,7 +76,7 @@ public class Main
 			e.printStackTrace();
 		}
 		
-		//testRoutine(); use this for performance tests
+		testRoutine(100, 1, 20, 3); //use this for performance tests
 	}
 	private static void writeResultToFile(String filePath,Manager manager, int N) throws FileNotFoundException, UnsupportedEncodingException
 	{
@@ -146,36 +146,43 @@ public class Main
 		return list;
 	}
 	//use this for measurements
-	public static void testRoutine()
+	public static void testRoutine(int N,int Mi,int Mf,int q)
 	{
 		
 		List<double[][]> list = new LinkedList<double[][]>();
-		double[][] A = 
-				{{1,2,3,4,5},
-				{1,2,3,4,5},
-				{1,2,3,4,5},
-				{1,2,3,4,5},
-				{1,2,3,4,5}};
-		double[][]Id = 
-				{{1,0,0,0,0},
-				{0,1,0,0,0},
-				{0,0,1,0,0},
-				{0,0,0,1,0},
-				{0,0,0,0,1}};
+		double A[][] = new double[N][N];
+		double Id[][] = new double[N][N];
+		for (int i=0;i<N;i++)
+		{
+			for (int j=0;j<N;j++)
+			{
+				A[i][j] = j;
+				Id[i][j] = i==j ? 1 : 0;
+			}
+		}
+		
 		list.add(A);
-		for(int i=0;i<1000;i++)
+		for(int i=0;i<q;i++)
 		{
 			list.add(Id);
 		}
-		Manager manager = new Manager(2, 5);
-		manager.setMatrixList(list);
+		for(int m=Mi;m<Mf;m++)
+		{
+			LinkedList<double[][]> nList = new LinkedList<double[][]>();
+		for(double[][] matrix : list)
+		{
+			nList.add(matrix);
+		}
+		Manager manager = new Manager(m, N);
+		manager.setMatrixList(nList);
 		
 		long startTime = System.currentTimeMillis();
 		manager.startBatch();
 		long elapsedTime = System.currentTimeMillis() - startTime;
-		System.out.println("Finished");
-		System.out.println(String.format("It took %d miliseconds", elapsedTime));
-		manager.printMatrix();
+		
+		System.out.println(String.format("M:%d = %d miliseconds", m,elapsedTime));
+		//manager.printMatrix();
+		}
 	}
 }
 
