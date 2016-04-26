@@ -44,11 +44,12 @@ public class Manager
 		this.N = matrixDimension;
 		this.pool =  Executors.newFixedThreadPool(this.numberOfThreads);
 	}
+	//set list of matrix to proccess
 	public void setMatrixList(List<double[][]> list)
 	{
 		this.matrixList = list;
 	}
-	
+	// do batch calculations for all matrix list
 	public void startBatch()
 	{
 		this.currentMatrix = matrixList.get(0);
@@ -58,7 +59,6 @@ public class Manager
 		{
 			nextMatrix();
 		}
-		terminatePool();
 		
 	}
 	public void nextMatrix()
@@ -85,16 +85,16 @@ public class Manager
 				todo.add(Executors.callable(w)); 
 			}
 		}
-		
+		// wait threads finish this product
 		try {
 			this.pool.invokeAll(todo);
 		} catch (InterruptedException e) {
 			System.out.println("Please do not interrupt");
 			e.printStackTrace();
 		}
-		
 		System.out.println("Matrix Processed");
 	}
+	// create deep copy of current Matrix
 	private void createMatrixCopy()
 	{
 		this.currentMatrixCopy = new double[N][N];
@@ -107,7 +107,8 @@ public class Manager
 			
 		}
 	}
-	private void terminatePool()
+	//use this to forbid pool to operate again
+	public void terminatePool()
 	{
 		this.pool.shutdown();
 		System.out.println("waiting threads to finish");
@@ -119,6 +120,7 @@ public class Manager
 			this.pool.shutdownNow();
 		}
 	}
+	//debug printMatrix
 	public void printMatrix()
 	{
 		System.out.println(N);
