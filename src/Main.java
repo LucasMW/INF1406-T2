@@ -76,7 +76,7 @@ public class Main
 			e.printStackTrace();
 		}
 		
-		testRoutine(100, 1, 20, 3); //use this for performance tests
+		testRoutine(100, 1, 50, 2); //use this for performance tests
 	}
 	private static void writeResultToFile(String filePath,Manager manager, int N) throws FileNotFoundException, UnsupportedEncodingException
 	{
@@ -166,7 +166,7 @@ public class Main
 		{
 			list.add(Id);
 		}
-		for(int m=Mi;m<Mf;m++)
+		for(int m=Mi;m<=Mf;m++) //include Mf
 		{
 			LinkedList<double[][]> nList = new LinkedList<double[][]>();
 		for(double[][] matrix : list)
