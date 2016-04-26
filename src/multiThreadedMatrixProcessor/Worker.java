@@ -1,3 +1,4 @@
+package multiThreadedMatrixProcessor;
 
 public class Worker implements Runnable 
 {
